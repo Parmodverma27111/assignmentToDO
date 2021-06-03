@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>
+      
+      <%=title%></title>
+  </head>
+  <body>
+    <div class="header"><h1><i class="fas fa-clipboard-list"></i>&nbsp To Do App</h1></div>
+    <div class="main-container">
+      <!-- left side container
+        which contains list title names 
+        -->
+      
+      <div class="list-title">
+        <form action="/create-data" method="POST">
+            <div class="sub-container">
+                <p><i class="fas fa-long-arrow-alt-down"></i>&nbsp DESCRIPTION</p>
+                <input id="des-input" type="text" name="description" placeholder="What do you need to do ?" required />
+            </div>
+            
+            <div class="cat-date-merge">
+              <div class="sub-container" id="category">
+                  <p><i class="fas fa-ellipsis-v"></i>&nbsp CATEGORY</p>
+                  <select name="category" >
+                    <option value="" disabled selected hidden>Select </option>
+                      <option value="school">School</option>
+                      <option value="work">Work</option>
+                      <option value="shopping">Shopping</option>
+                      <option value="grocery">Grocery</option>
+                      
+                      <option value="other">Other</option>
+                  </select>
+              </div>  
+
+              <div class="sub-container" id="date"> 
+                <p><i class="fas fa-calendar-week"></i>&nbsp Date</p>
+                <input type="date"  name="date" required>
+              </div>
+            </div>
+            <button id="add-btn"  type="submit"><i class="fas fa-plus"></i>&nbsp Add a task</button>
+            </form>
+
+            <div class="list">
+              <div class="category-title"><p>&nbsp<i class="fas fa-school">&nbsp School</i></p></div>
+              <div class="category-title"><p>&nbsp<i class="fas fa-business-time">&nbsp Work</i></p></div>
+              <div class="category-title"><p>&nbsp<i class="fas fa-shopping-cart">&nbsp Shopping</i></p></div>
+              <div class="category-title"><p>&nbsp<i class="fas fa-shopping-basket">&nbsp Grocery</i></p></div>
+              <div class="category-title"><p>&nbsp<i class="fas fa-align-justify">&nbsp Other</i></p></div>
+            </div>
+
+        </div>
+        <!-- right side container
+        which contains list items -->
+        <div class="list-items">
+          <!-- print -->
+          <%if(!err){%>
+            <ul >
+              <% for(let i of arr){ %>
+                    <li>
+                      <div class="display-container">
+                        <div class="des-date-container">
+                          <div id="descrip">
+                            <p><%= i.description%></p>
+                          </div>
+                          <div id="date">
+                          <p><%= i.date%></p>
+                        </div>
+                        </div>
+                        
+
+                        <div class="cate-del-container">
+                        <div class="cate-container">
+                            <p>  {   <%= i.category%> } </p>
+                        </div>
+                        <div class="delete-btn"><a href="/delete-list/?id=<%= i.id%>"> <i class="fas fa-trash-alt"></i></a></div>
+                        </div>
+                      </div>
+                      
+                    </li>
+              <%}%>
+          </ul>
+        <%}%>
+        </div>
+      </div>
+    </div>
+    <script src="/js/script.js" type="text/javaScript"></script>
+  </body>
+</html>
